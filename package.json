@@ -1,0 +1,26 @@
+{
+  "name": "ergast-client",
+  "version": "0.1.0",
+  "description": "Client for the Ergast F1 API (http://ergast.com/mrd/).",
+  "main": "index.js",
+  "dependencies": {
+    "restler": "^3.2.2",
+    "underscore": "^1.6.0",
+    "jasmine-node": "^1.14.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jasmine-node spec/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidor/ergast-client-nodejs.git"
+  },
+  "keywords": [
+    "f1",
+    "formula1",
+    "ergast"
+  ],
+  "author": "David Ortiz López",
+  "license": "MIT"
+}

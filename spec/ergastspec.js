@@ -7,8 +7,8 @@ var ergast = new ErgastClient();
 
 describe("the 2014 schedule", function() {
     it("should contain the Spanish Grand Prix, celebrated in Montmeló (Spain) on 2014-05-11", function(done) {
-        ergast.getYearSchedule(2014, function(err, results) {
-            var raceSchedule = _.find(results["MRData"]["RaceTable"]["Races"],
+        ergast.getYearSchedule(2014, function(err, response) {
+            var raceSchedule = _.find(response["MRData"]["RaceTable"]["Races"],
                     function(raceSchedule) { return raceSchedule["raceName"] === "Spanish Grand Prix" });
             expect(raceSchedule["Circuit"]["Location"]["locality"]).toEqual("Montmeló");
             expect(raceSchedule["Circuit"]["Location"]["country"]).toEqual("Spain");
@@ -20,9 +20,9 @@ describe("the 2014 schedule", function() {
 
 describe("the 4th race of 2014", function() {
     it("should have a schedule with date=2014-04-20 and country=China", function(done) {
-        ergast.getRaceSchedule(2014, 4, function(err, results) {
-            expect(extractRaceFromResults(results)["date"]).toEqual("2014-04-20");
-            expect(extractRaceFromResults(results)["Circuit"]["Location"]["country"]).toEqual("China");
+        ergast.getRaceSchedule(2014, 4, function(err, response) {
+            expect(extractRaceFromResponse(response)["date"]).toEqual("2014-04-20");
+            expect(extractRaceFromResponse(response)["Circuit"]["Location"]["country"]).toEqual("China");
             done();
         });
     })
@@ -30,9 +30,9 @@ describe("the 4th race of 2014", function() {
 
 describe("the results of the 1st race of 2014", function() {
     it("should have Rosberg in P1, and Bottas in P5", function(done) {
-        ergast.getRaceResults(2014, 1, function (err, results) {
-            expect(extractRaceFromResults(results)["Results"][0]["Driver"]["familyName"]).toEqual("Rosberg");
-            expect(extractRaceFromResults(results)["Results"][4]["Driver"]["familyName"]).toEqual("Bottas");
+        ergast.getRaceResults(2014, 1, function (err, response) {
+            expect(extractRaceFromResponse(response)["Results"][0]["Driver"]["familyName"]).toEqual("Rosberg");
+            expect(extractRaceFromResponse(response)["Results"][4]["Driver"]["familyName"]).toEqual("Bottas");
             done();
         });
     })
@@ -40,9 +40,9 @@ describe("the results of the 1st race of 2014", function() {
 
 describe("the 2nd race of 2014", function() {
     it("should have Alonso in P4, and Maldonado in P17", function(done) {
-        ergast.getQualifyingResults(2014, 2, function(err, results) {
-            expect(extractRaceFromResults(results)["QualifyingResults"][3]["Driver"]["familyName"]).toEqual("Alonso");
-            expect(extractRaceFromResults(results)["QualifyingResults"][16]["Driver"]["familyName"])
+        ergast.getQualifyingResults(2014, 2, function(err, response) {
+            expect(extractRaceFromResponse(response)["QualifyingResults"][3]["Driver"]["familyName"]).toEqual("Alonso");
+            expect(extractRaceFromResponse(response)["QualifyingResults"][16]["Driver"]["familyName"])
                 .toEqual("Maldonado");
             done();
         });
@@ -51,10 +51,10 @@ describe("the 2nd race of 2014", function() {
 
 describe("the driver standings of 2013", function() {
     it("should have Alonso in P2, and Maldonado in P18", function(done) {
-        ergast.getDriverStandings(2013, function(err, results) {
-            expect(extractStandingListFromResults(results)["DriverStandings"][1]["Driver"]["familyName"])
+        ergast.getDriverStandings(2013, function(err, response) {
+            expect(extractStandingListFromResponse(response)["DriverStandings"][1]["Driver"]["familyName"])
                 .toEqual("Alonso");
-            expect(extractStandingListFromResults(results)["DriverStandings"][17]["Driver"]["familyName"])
+            expect(extractStandingListFromResponse(response)["DriverStandings"][17]["Driver"]["familyName"])
                 .toEqual("Maldonado");
             done();
         });
@@ -63,10 +63,10 @@ describe("the driver standings of 2013", function() {
 
 describe("the driver standings after the 2nd race of 2014", function() {
     it("should have Rosberg in P1, and Hamilton in P2", function(done) {
-        ergast.getDriverStandingsAfterRace(2014, 2, function(err, results) {
-            expect(extractStandingListFromResults(results)["DriverStandings"][0]["Driver"]["familyName"])
+        ergast.getDriverStandingsAfterRace(2014, 2, function(err, response) {
+            expect(extractStandingListFromResponse(response)["DriverStandings"][0]["Driver"]["familyName"])
                 .toEqual("Rosberg");
-            expect(extractStandingListFromResults(results)["DriverStandings"][1]["Driver"]["familyName"])
+            expect(extractStandingListFromResponse(response)["DriverStandings"][1]["Driver"]["familyName"])
                 .toEqual("Hamilton");
             done();
         });
@@ -75,10 +75,10 @@ describe("the driver standings after the 2nd race of 2014", function() {
 
 describe("the constructor standings of 2013", function() {
     it("should have Ferrari in the third position, and Sauber in the 7th position", function(done) {
-        ergast.getConstructorStandings(2013, function(err, results) {
-            expect(extractStandingListFromResults(results)["ConstructorStandings"][2]["Constructor"]["name"])
+        ergast.getConstructorStandings(2013, function(err, response) {
+            expect(extractStandingListFromResponse(response)["ConstructorStandings"][2]["Constructor"]["name"])
                 .toEqual("Ferrari");
-            expect(extractStandingListFromResults(results)["ConstructorStandings"][6]["Constructor"]["name"])
+            expect(extractStandingListFromResponse(response)["ConstructorStandings"][6]["Constructor"]["name"])
                 .toEqual("Sauber");
             done();
         });
@@ -87,10 +87,10 @@ describe("the constructor standings of 2013", function() {
 
 describe("the constructor standings of 2014 after the 2nd race", function() {
     it("should have Ferrari in the third position, and Sauber in the 8th", function(done) {
-       ergast.getConstructorStandingsAfterRace(2014, 2, function(err, results) {
-            expect(extractStandingListFromResults(results)["ConstructorStandings"][2]["Constructor"]["name"])
+       ergast.getConstructorStandingsAfterRace(2014, 2, function(err, response) {
+            expect(extractStandingListFromResponse(response)["ConstructorStandings"][2]["Constructor"]["name"])
                 .toEqual("Ferrari");
-            expect(extractStandingListFromResults(results)["ConstructorStandings"][7]["Constructor"]["name"])
+            expect(extractStandingListFromResponse(response)["ConstructorStandings"][7]["Constructor"]["name"])
                 .toEqual("Sauber");
             done();
        });
@@ -99,8 +99,8 @@ describe("the constructor standings of 2014 after the 2nd race", function() {
 
 describe("the drivers information of 2014", function() {
     it("should contain a driver with the number 14 called Alonso", function(done) {
-       ergast.getDriversInformation(2014, function(err, results) {
-           var driver = _.find(results["MRData"]["DriverTable"]["Drivers"],
+       ergast.getDriversInformation(2014, function(err, response) {
+           var driver = _.find(response["MRData"]["DriverTable"]["Drivers"],
                     function(driver) { return driver["permanentNumber"] === "14" } );
            expect(driver["familyName"]).toEqual("Alonso");
            done();
@@ -110,8 +110,8 @@ describe("the drivers information of 2014", function() {
 
 describe("the constructors information of 2014", function() {
     it("should contain an Italian team called Ferrari", function(done) {
-        ergast.getConstructorsInformation(2014, function(err, results) {
-            var constructor = _.find(results["MRData"]["ConstructorTable"]["Constructors"],
+        ergast.getConstructorsInformation(2014, function(err, response) {
+            var constructor = _.find(response["MRData"]["ConstructorTable"]["Constructors"],
                     function(constructor) { return constructor["name"] === "Ferrari" });
             expect(constructor["nationality"]).toEqual("Italian");
             done();
@@ -121,8 +121,8 @@ describe("the constructors information of 2014", function() {
 
 describe("the circuits information of 2014", function() {
     it("should contain a circuit called Circuit de Catalunya in Spain", function(done) {
-        ergast.getCircuitsInformation(2014, function(err, results) {
-            var circuit = _.find(results["MRData"]["CircuitTable"]["Circuits"],
+        ergast.getCircuitsInformation(2014, function(err, response) {
+            var circuit = _.find(response["MRData"]["CircuitTable"]["Circuits"],
                     function(circuit) { return circuit["circuitName"] === "Circuit de Catalunya" });
             expect(circuit["Location"]["country"]).toEqual("Spain");
             done();
@@ -132,9 +132,9 @@ describe("the circuits information of 2014", function() {
 
 describe("the circuit of the 6th race of 2014", function() {
     it("should be called Circuit de Monaco and be located in Monaco", function(done) {
-        ergast.getCircuitInformation(2014, 6, function(err, results) {
-            expect(results["MRData"]["CircuitTable"]["Circuits"][0]["circuitName"]).toEqual("Circuit de Monaco");
-            expect(results["MRData"]["CircuitTable"]["Circuits"][0]["Location"]["country"]).toEqual("Monaco");
+        ergast.getCircuitInformation(2014, 6, function(err, response) {
+            expect(response["MRData"]["CircuitTable"]["Circuits"][0]["circuitName"]).toEqual("Circuit de Monaco");
+            expect(response["MRData"]["CircuitTable"]["Circuits"][0]["Location"]["country"]).toEqual("Monaco");
             done();
         });
     });
@@ -142,8 +142,8 @@ describe("the circuit of the 6th race of 2014", function() {
 
 describe("the finishing statuses of 2013", function() {
     it("should contain a status called Collision with 12 occurrences", function(done) {
-        ergast.getFinishingStatuses(2013, function(err, results) {
-            var status = _.find(results["MRData"]["StatusTable"]["Status"],
+        ergast.getFinishingStatuses(2013, function(err, response) {
+            var status = _.find(response["MRData"]["StatusTable"]["Status"],
                     function(status) { return status["status"] === "Collision" });
             expect(status["count"]).toEqual("12");
             done();
@@ -153,8 +153,8 @@ describe("the finishing statuses of 2013", function() {
 
 describe("the finishing statuses of the 3rd race of 2014", function() {
     it("should contain a status called Collision with 2 occurrences", function(done) {
-        ergast.getFinishingStatusesInRace(2014, 3, function(err, results) {
-            var status = _.find(results["MRData"]["StatusTable"]["Status"],
+        ergast.getFinishingStatusesInRace(2014, 3, function(err, response) {
+            var status = _.find(response["MRData"]["StatusTable"]["Status"],
                 function(status) { return status["status"] === "Collision" });
             expect(status["count"]).toEqual("2");
             done();
@@ -164,8 +164,8 @@ describe("the finishing statuses of the 3rd race of 2014", function() {
 
 describe("the lap times of the 4th race of 2014 (10th lap)", function() {
     it("should contain a lap time for Alonso (1:44.677)", function(done) {
-        ergast.getLapTimes(2014, 4, 10, function(err, results) {
-            var lap = _.find(results["MRData"]["RaceTable"]["Races"][0]["Laps"][0]["Timings"],
+        ergast.getLapTimes(2014, 4, 10, function(err, response) {
+            var lap = _.find(response["MRData"]["RaceTable"]["Races"][0]["Laps"][0]["Timings"],
                     function(lap) { return lap["driverId"] === "alonso" });
             expect(lap["time"]).toEqual("1:44.677");
             done();
@@ -175,8 +175,8 @@ describe("the lap times of the 4th race of 2014 (10th lap)", function() {
 
 describe("the pit stops of the 5th race of 2014", function() {
     it("should contain the first pit stop of Alonso (21.970)", function(done) {
-        ergast.getPitStops(2014, 5, function(err, results) {
-            var pitStop = _.find(results["MRData"]["RaceTable"]["Races"][0]["PitStops"],
+        ergast.getPitStops(2014, 5, function(err, response) {
+            var pitStop = _.find(response["MRData"]["RaceTable"]["Races"][0]["PitStops"],
                         function(pitStop) { return pitStop["driverId"] === "alonso" && pitStop["stop"] === "1" });
             expect(pitStop["duration"]).toEqual("21.970");
             done();
@@ -187,10 +187,10 @@ describe("the pit stops of the 5th race of 2014", function() {
 
 /* Auxiliary functions */
 
-function extractRaceFromResults(results) {
-    return results["MRData"]["RaceTable"]["Races"][0];
+function extractRaceFromResponse(response) {
+    return response["MRData"]["RaceTable"]["Races"][0];
 }
 
-function extractStandingListFromResults(results) {
-    return results["MRData"]["StandingsTable"]["StandingsLists"][0];
+function extractStandingListFromResponse(response) {
+    return response["MRData"]["StandingsTable"]["StandingsLists"][0];
 }

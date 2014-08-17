@@ -1,6 +1,6 @@
 {
   "name": "ergast-client",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Client for the Ergast F1 API (http://ergast.com/mrd/).",
   "main": "index.js",
   "dependencies": {

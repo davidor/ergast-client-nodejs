@@ -32,3 +32,11 @@ ergast.getFinishingStatusesInRace(year, race, function(err, results) {});
 ergast.getLapTimes(year, race, lap, function(err, results) {});
 ergast.getPitStops(year, race, function(err, results) {});
 ```
+
+For example, to print the JSON that contains the results of the 5th race of 2014 (http://ergast.com/api/f1/2014/5/results.json):
+
+```
+ergast.getRaceResults(2014, 5, function(err, results) {
+  console.log(results);
+});
+```

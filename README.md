@@ -33,10 +33,11 @@ ergast.getLapTimes(year, race, lap, function(err, response) {});
 ergast.getPitStops(year, race, function(err, response) {});
 ```
 
-For example, to print the JSON that contains the results of the 5th race of 2014 (http://ergast.com/api/f1/2014/5/results.json):
+For example, to print the JSON that contains the results of the 5th race of 2014:
 
 ```
 ergast.getRaceResults(2014, 5, function(err, results) {
   console.log(results);
 });
 ```
+In this case, the variable `results` references the same object that can be retrieved using the Ergast API: http://ergast.com/api/f1/2014/5/results.json

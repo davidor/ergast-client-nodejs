@@ -15,29 +15,28 @@ Usage:
 var ErgastClient = require('ergast-client');
 var ergast = new ErgastClient();
 
-ergast.getYearSchedule(year, function(err, response) {});
-ergast.getRaceSchedule(year, race, function(err, response) {});
-ergast.getRaceResults(year, race, function(err, response) {});
-ergast.getQualifyingResults(year, race, function(err, response) {});
-ergast.getDriverStandings(year, function(err, response) {});
-ergast.getDriverStandingsAfterRace(year, race, function(err, response) {});
-ergast.getConstructorStandings(year, function(err, response) {});
-ergast.getConstructorStandingsAfterRace(year, race, function(err, response) {});
-ergast.getDriversInformation(year, function(err, response) {});
-ergast.getConstructorsInformation(year, function(err, response) {});
-ergast.getCircuitsInformation(year, function(err, response) {});
-ergast.getCircuitInformation(year, race, function(err, response) {});
-ergast.getFinishingStatuses(year, function(err, response) {});
-ergast.getFinishingStatusesInRace(year, race, function(err, response) {});
-ergast.getLapTimes(year, race, lap, function(err, response) {});
-ergast.getPitStops(year, race, function(err, response) {});
-```
 
-For example, to print the JSON that contains the results of the 5th race of 2014:
+ergast.getSeason(year, function(season) {});
+ergast.getRace(season, round, function(race) {});
+ergast.getRaceResults(season, round, function(raceResults) {});
+ergast.getQualifyingResults(season, round, function(qualifyingResults) {});
+ergast.getDriverStandings(season, function(driverStandings) {});
+ergast.getDriverStandingsAfterRound(season, round, function(driverStandings) {});
+ergast.getConstructorStandings(season, function(constructorStandings) {});
+ergast.getConstructorStandingsAfterRound(season, round, function(constructorStandings) {});
+ergast.getDriver(driverId, function(driver) {});
+ergast.getDrivers(year, function(drivers) {});
+ergast.getConstructor(constructorId, function(constructor) {});
+ergast.getConstructors(year, function(constructors) {});
+ergast.getCircuit(season, round, function(circuit) {});
+ergast.getCircuits(season, function(circuits) {});
+ergast.getFinishingStatuses(season, round, function(finishingStatuses) {});
+ergast.getYearFinishingStatuses(season, function(finishingStatuses) {});
+ergast.getLap(season, round, lapNumber, function(lap) {});
+ergast.getDriverLap(season, round, lapNumber, driverId, function(lap) {});
+ergast.getPitStop(season, round, pitStopNumber, function(pitStop) {});
+ergast.getDriverPitStop(season, round, pitStopNumber, driverId, function(pitStop) {});
+
+There are some examples in the file `examples.js`.
 
 ```
-ergast.getRaceResults(2014, 5, function(err, results) {
-  console.log(results);
-});
-```
-In this case, the variable `results` references the same object that can be retrieved using the Ergast API: http://ergast.com/api/f1/2014/5/results.json

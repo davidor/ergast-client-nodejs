@@ -1,90 +1,151 @@
-var getRequest = require('./lib/httpRequest');
-var Schedules = require('./lib/ergast-api/schedules');
-var Results = require('./lib/ergast-api/results');
-var Standings = require('./lib/ergast-api/standings');
-var Drivers = require('./lib/ergast-api/drivers');
-var Constructors = require('./lib/ergast-api/constructors');
-var Circuits = require('./lib/ergast-api/circuits');
-var FinishingStatuses = require('./lib/ergast-api/finishingStatuses');
-var Laps = require('./lib/ergast-api/laps');
-var PitStops = require('./lib/ergast-api/pitStops');
+var Drivers = require('./lib/client/drivers');
+var Constructors = require('./lib/client/constructors');
+var Races = require('./lib/client/races');
+var Seasons = require('./lib/client/seasons');
+var RaceResults = require('./lib/client/raceResults');
+var QualifyingResults = require('./lib/client/qualifyingResults');
+var Standings = require('./lib/client/standings');
+var Circuits = require('./lib/client/circuits');
+var FinishingStatuses = require('./lib/client/finishingStatuses');
+var LapTimes = require('./lib/client/laptimes');
+var PitStops = require('./lib/client/pitStops');
 
 var BASE_URL = "http://ergast.com/api/f1/";
 
 function ErgastClient() {
-    var schedules = new Schedules(BASE_URL);
-    var results = new Results(BASE_URL);
+
+    var seasons = new Seasons(BASE_URL);
+    var races = new Races(BASE_URL);
+    var raceResults = new RaceResults(BASE_URL);
+    var qualifyingResults = new QualifyingResults(BASE_URL);
     var standings = new Standings(BASE_URL);
     var drivers = new Drivers(BASE_URL);
     var constructors = new Constructors(BASE_URL);
     var circuits = new Circuits(BASE_URL);
     var finishingStatuses = new FinishingStatuses(BASE_URL);
-    var laps = new Laps(BASE_URL);
+    var lapTimes = new LapTimes(BASE_URL);
     var pitStops = new PitStops(BASE_URL);
 
-    this.getYearSchedule = function(year, callback) {
-        schedules.getYearSchedule(year, callback);
+    this.getSeason = function(year, callback) {
+        seasons.getSeason(year, function(season) {
+            callback(season);
+        });
     };
 
-    this.getRaceSchedule = function(year, race, callback) {
-        schedules.getRaceSchedule(year, race, callback);
+    this.getRace = function(season, round, callback) {
+        races.getRace(season, round, function(race) {
+            callback(race);
+        });
     };
 
-    this.getRaceResults = function(year, race, callback) {
-        results.getRaceResults(year, race, callback);
+    this.getRaceResults = function(season, round, callback) {
+        raceResults.getRaceResults(season, round, function(raceResults) {
+            callback(raceResults);
+        });
     };
 
-    this.getQualifyingResults = function(year, race, callback) {
-        results.getQualifyingResults(year, race, callback);
+    this.getQualifyingResults = function(season, round, callback) {
+        qualifyingResults.getQualifyingResults(season, round, function(qualifyingResults) {
+            callback(qualifyingResults);
+        })
     };
 
-    this.getDriverStandings = function(year, callback) {
-        standings.getDriverStandings(year, callback);
+    this.getDriverStandings = function(season, callback) {
+        standings.getDriverStandings(season, function(standings) {
+            callback(standings);
+        });
     };
 
-    this.getDriverStandingsAfterRace = function(year, race, callback) {
-        standings.getDriverStandingsAfterRace(year, race, callback);
+    this.getDriverStandingsAfterRound = function(season, round, callback) {
+        standings.getDriverStandingsAfterRound(season, round, function(standings) {
+            callback(standings);
+        });
     };
 
-    this.getConstructorStandings = function(year, callback) {
-        standings.getConstructorStandings(year, callback);
+    this.getConstructorStandings = function(season, callback) {
+        standings.getConstructorStandings(season, function(standings) {
+            callback(standings);
+        });
     };
 
-    this.getConstructorStandingsAfterRace = function(year, race, callback) {
-        standings.getConstructorStandingsAfterRace(year, race, callback);
+    this.getConstructorStandingsAfterRound = function(season, round, callback) {
+        standings.getConstructorStandingsAfterRound(season, round, function(standings) {
+            callback(standings);
+        });
     };
 
-    this.getDriversInformation = function(year, callback) {
-        drivers.getDriversInformation(year, callback);
+    this.getDriver = function(driverId, callback) {
+        drivers.getDriver(driverId, function(driver) {
+            callback(driver);
+        });
     };
 
-    this.getConstructorsInformation = function(year, callback) {
-        constructors.getConstructorsInformation(year, callback);
+    this.getDrivers = function(year, callback) {
+        drivers.getDrivers(year, function(drivers){
+            callback(drivers);
+        })
     };
 
-    this.getCircuitsInformation = function(year, callback) {
-        circuits.getCircuitsInformation(year, callback);
+    this.getConstructor = function(constructorId, callback) {
+        constructors.getConstructor(constructorId, function(constructor) {
+            callback(constructor);
+        });
     };
 
-    this.getCircuitInformation = function(year, race, callback) {
-        circuits.getCircuitInformation(year, race, callback);
+    this.getConstructors = function(year, callback) {
+        constructors.getConstructors(year, function(constructors) {
+            callback(constructors);
+        });
     };
 
-    this.getFinishingStatuses = function(year, callback) {
-        finishingStatuses.getFinishingStatuses(year, callback);
+    this.getCircuit = function(season, round, callback) {
+        circuits.getCircuit(season, round, function(circuit) {
+            callback(circuit);
+        });
     };
 
-    this.getFinishingStatusesInRace = function(year, race, callback) {
-        finishingStatuses.getFinishingStatusesInRace(year, race, callback);
+    this.getCircuits = function(season, callback) {
+        circuits.getCircuits(season, function(circuits) {
+            callback(circuits);
+        });
     };
 
-    this.getLapTimes = function(year, race, lap, callback) {
-        laps.getLapTimes(year, race, lap, callback);
+    this.getFinishingStatuses = function(season, round, callback) {
+        finishingStatuses.getFinishingStatuses(season, round, function(finishingStatuses) {
+           callback(finishingStatuses);
+        });
     };
 
-    this.getPitStops = function(year, race, callback) {
-        pitStops.getPitStops(year, race, callback);
+    this.getYearFinishingStatuses = function(season, callback) {
+        finishingStatuses.getYearFinishingStatuses(season, function(finishingStatuses) {
+           callback(finishingStatuses);
+        });
     };
+
+    this.getLap = function(season, round, lapNumber, callback) {
+        lapTimes.getLap(season, round, lapNumber, function(lap) {
+            callback(lap);
+        });
+    };
+
+    this.getDriverLap = function(season, round, lapNumber, driverId, callback) {
+        lapTimes.getDriverLap(season, round, lapNumber, driverId, function(lap) {
+           callback(lap);
+        });
+    };
+
+    this.getPitStop = function(season, round, pitStopNumber, callback) {
+        pitStops.getPitStop(season, round, pitStopNumber, function(pitStop) {
+            callback(pitStop);
+        });
+    };
+
+    this.getDriverPitStop = function(season, round, pitStopNumber, driverId, callback) {
+        pitStops.getDriverPitStop(season, round, pitStopNumber, driverId, function(pitStop) {
+            callback(pitStop);
+        });
+    };
+
 }
 
 module.exports = ErgastClient;

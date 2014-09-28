@@ -15,7 +15,6 @@ Usage:
 var ErgastClient = require('ergast-client');
 var ergast = new ErgastClient();
 
-
 ergast.getSeason(year, function(err, season) {});
 ergast.getRace(season, round, function(err, race) {});
 ergast.getRaceResults(season, round, function(err, raceResults) {});

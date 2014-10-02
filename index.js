@@ -7,7 +7,7 @@ var QualifyingResults = require('./lib/client/qualifyingResults');
 var Standings = require('./lib/client/standings');
 var Circuits = require('./lib/client/circuits');
 var FinishingStatuses = require('./lib/client/finishingStatuses');
-var LapTimes = require('./lib/client/laptimes');
+var LapTimes = require('./lib/client/lapTimes');
 var PitStops = require('./lib/client/pitStops');
 
 var BASE_URL = "http://ergast.com/api/f1/";

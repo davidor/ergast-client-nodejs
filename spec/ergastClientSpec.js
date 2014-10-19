@@ -341,6 +341,17 @@ describe("the getFinishingStatuses(2014, 1) call", function() {
     });
 });
 
+// Test for getFinishingStatuses with invalid request
+describe("the getFinishingStatuses(1900, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getFinishingStatuses(1900, 1, function(err, statuses) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(statuses).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getYearFinishingStatuses
 describe("the getYearFinishingStatuses(2013) call", function() {
     it("returns a list that includes a status called Finished (244 times), and Collision (12 times)", function(done) {
@@ -349,6 +360,17 @@ describe("the getYearFinishingStatuses(2013) call", function() {
                 expect(statuses.getStatus('Finished').count).toEqual(244);
                 expect(statuses.getStatus('Collision').count).toEqual(12);
             }
+            done();
+        });
+    });
+});
+
+// Test for getYearFinishingStatuses with invalid request
+describe("the getYearFinishingStatuses(1900) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getYearFinishingStatuses(1900, function(err, statuses) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(statuses).toBeUndefined();
             done();
         });
     });

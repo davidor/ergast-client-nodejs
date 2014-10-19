@@ -389,6 +389,17 @@ describe("the getLap(2014, 5, 1) call", function() {
     });
 });
 
+// Test for getLap with invalid request
+describe("the getLap(1900, 1, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getLap(1900, 1, 1, function(err, lap) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(lap).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getDriverLap
 describe("the getDriverLap(2014, 6, 2, 'alonso') call", function() {
     it("returns a lap of 1:34.273", function(done) {
@@ -396,6 +407,17 @@ describe("the getDriverLap(2014, 6, 2, 'alonso') call", function() {
             if (!err) {
                 expect(lap.time).toEqual('2:03.569');
             }
+            done();
+        });
+    });
+});
+
+// Test for getDriverLap with invalid request
+describe("the getDriverLap(1900, 1, 1, 'alonso') call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getDriverLap(1900, 1, 1, 'alonso', function(err, lap) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(lap).toBeUndefined();
             done();
         });
     });

@@ -137,6 +137,17 @@ describe("the getDriverStandings(2013) call", function() {
     });
 });
 
+// Test for getDriverStandings with invalid request
+describe("the getDriverStandings(1900) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getRace(1900, 1, function(err, driverStandings) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(driverStandings).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getDriverStandingsAfterRound
 describe("the getDriverStandingsAfterRound(2014, 2) call", function() {
     it("returns standings that have Rosberg in P1, and Hamilton in P2", function(done) {
@@ -147,6 +158,17 @@ describe("the getDriverStandingsAfterRound(2014, 2) call", function() {
                 var p2Driver = standings.getDriverStanding(2);
                 expect(p2Driver.driver.familyName).toEqual("Hamilton");
             }
+            done();
+        });
+    });
+});
+
+// Test for getDriverStandingsAfterRound with invalid request
+describe("the getDriverStandings(1900, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getDriverStandingsAfterRound(1900, 1, function(err, driverStandings) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(driverStandings).toBeUndefined();
             done();
         });
     });
@@ -170,6 +192,17 @@ describe("the getConstructorStandings(2013) call", function() {
     });
 });
 
+// Test for getConstructorStandings with invalid request
+describe("the getConstructorStandings(1900) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getConstructorStandings(1900, function(err, constructorStandings) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(constructorStandings).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getConstructorStandingsAfterRound
 describe("the getConstructorStandingsAfterRound(2014, 2) call", function() {
     it("returns standings that have Ferrari in the third position, and Sauber in the 8th", function(done) {
@@ -180,6 +213,17 @@ describe("the getConstructorStandingsAfterRound(2014, 2) call", function() {
                 var p8Constructor = standings.getConstructorStanding(8);
                 expect(p8Constructor.constructor.name).toEqual("Sauber");
             }
+            done();
+        });
+    });
+});
+
+// Test for getConstructorStandingsAfterRound with invalid request
+describe("the getConstructorStandingsAfterRound(1900, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getConstructorStandingsAfterRound(1900, 1, function(err, standings) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(standings).toBeUndefined();
             done();
         });
     });

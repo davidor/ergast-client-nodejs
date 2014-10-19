@@ -106,6 +106,17 @@ describe("the getQualifyingResults(2014, 2) call", function() {
     });
 });
 
+// Test for getQualifyingResults with invalid request
+describe("the getQualifyingResults(1900, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getRace(1900, 1, function(err, qualifyingResults) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(qualifyingResults).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getDriverStandings
 describe("the getDriverStandings(2013) call", function() {
     it("returns standings that have Alonso in P2(team=Ferrari, points=242), " +
@@ -460,8 +471,8 @@ describe("the getDriverPitStop(2014, 1, 1, 'alonso') call", function() {
    });
 });
 
-// Test for getgetDriverPitStop with invalid request
-describe("the getgetDriverPitStop(1900, 1, 1, 'alonso') call", function() {
+// Test for getDriverPitStop with invalid request
+describe("the getDriverPitStop(1900, 1, 1, 'alonso') call", function() {
     it("returns an error because Formula 1 did not exist", function(done) {
         ergast.getDriverPitStop(1900, 1, 1, 'alonso', function(err, pitStop) {
             expect(err).toEqual(jasmine.any(Error));

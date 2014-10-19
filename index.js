@@ -11,20 +11,22 @@ var LapTimes = require('./lib/client/lapTimes');
 var PitStops = require('./lib/client/pitStops');
 
 var BASE_URL = "http://ergast.com/api/f1/";
+var ResponsesValidator = require('./lib/client/responsesValidator');
 
 function ErgastClient() {
 
-    var seasons = new Seasons(BASE_URL);
-    var races = new Races(BASE_URL);
-    var raceResults = new RaceResults(BASE_URL);
-    var qualifyingResults = new QualifyingResults(BASE_URL);
-    var standings = new Standings(BASE_URL);
-    var drivers = new Drivers(BASE_URL);
-    var constructors = new Constructors(BASE_URL);
-    var circuits = new Circuits(BASE_URL);
-    var finishingStatuses = new FinishingStatuses(BASE_URL);
-    var lapTimes = new LapTimes(BASE_URL);
-    var pitStops = new PitStops(BASE_URL);
+    var responsesValidator = new ResponsesValidator();
+    var seasons = new Seasons(BASE_URL, responsesValidator);
+    var races = new Races(BASE_URL, responsesValidator);
+    var raceResults = new RaceResults(BASE_URL, responsesValidator);
+    var qualifyingResults = new QualifyingResults(BASE_URL, responsesValidator);
+    var standings = new Standings(BASE_URL, responsesValidator);
+    var drivers = new Drivers(BASE_URL, responsesValidator);
+    var constructors = new Constructors(BASE_URL, responsesValidator);
+    var circuits = new Circuits(BASE_URL, responsesValidator);
+    var finishingStatuses = new FinishingStatuses(BASE_URL, responsesValidator);
+    var lapTimes = new LapTimes(BASE_URL, responsesValidator);
+    var pitStops = new PitStops(BASE_URL, responsesValidator);
 
     this.getSeason = function(year, callback) {
         seasons.getSeason(year, function(err, season) {

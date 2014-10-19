@@ -18,6 +18,17 @@ describe("the getSeason(2014) call", function() {
     });
 });
 
+// Test for getSeason with invalid request
+describe("the getSeason(1900) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+       ergast.getSeason(1900, function(err, season) {
+           expect(err).toEqual(jasmine.any(Error));
+           expect(season).toBeUndefined();
+           done();
+       });
+    });
+});
+
 // Test for getRace
 describe("the getRace(2014, 4) call", function() {
     it("returns a race celebrated in China on 2014-04-20", function(done) {
@@ -26,6 +37,17 @@ describe("the getRace(2014, 4) call", function() {
                 expect(race.date).toEqual("2014-04-20");
                 expect(race.circuit.location.country).toEqual("China");
             }
+            done();
+        });
+    });
+});
+
+// Test for getRace with invalid request
+describe("the getRace(1900, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getRace(1900, 1, function(err, race) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(race).toBeUndefined();
             done();
         });
     });
@@ -49,6 +71,17 @@ describe("the getRaceResults(2014, 1) call", function() {
             done();
         });
     })
+});
+
+// Test for getRaceResults with invalid request
+describe("the getRaceResults(1900, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getRace(1900, 1, function(err, raceResults) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(raceResults).toBeUndefined();
+            done();
+        });
+    });
 });
 
 // Test for getQualifyingResults
@@ -154,6 +187,17 @@ describe("the getDriver('alonso') call", function() {
     });
 });
 
+// Test for getDriver with invalid request
+describe("the getDriver('alonsoo') call", function() {
+    it("returns an error because there is not a driver with id=alonsoo", function(done) {
+        ergast.getDriver("alonsoo", function(err, driver) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(driver).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getDrivers
 describe("the getDrivers(2014) call", function() {
     it("returns a list of drivers that contains a Spanish driver called Fernando Alonso with code ALO, " +
@@ -174,6 +218,17 @@ describe("the getDrivers(2014) call", function() {
     });
 });
 
+// Test for getDrivers with invalid request
+describe("the getDrivers(1900) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getDrivers(1900, function(err, drivers) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(drivers).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getConstructor
 describe("the getConstructor('ferrari') call", function() {
     it ("returns an Italian constructor called Ferrari", function(done) {
@@ -182,6 +237,17 @@ describe("the getConstructor('ferrari') call", function() {
                 expect(constructor.name).toEqual("Ferrari");
                 expect(constructor.nationality).toEqual("Italian");
             }
+            done();
+        });
+    });
+});
+
+// Test for getConstructor with invalid request
+describe("the getConstructor('ferrariii') call", function() {
+    it("returns an error because the constructor ferrariii does not exist", function(done) {
+        ergast.getConstructor("ferrariii", function(err, constructor) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(constructor).toBeUndefined();
             done();
         });
     });
@@ -201,6 +267,17 @@ describe("the getConstructors(2014) call", function() {
     });
 });
 
+// Test for getConstructor with invalid request
+describe("the getConstructors('1900') call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getConstructors(1900, function(err, constructors) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(constructors).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getCircuit
 describe("the getCircuit(2014, 6) call", function() {
     it("returns a circuit called Circuit de Monaco and is located in Monaco", function(done) {
@@ -209,6 +286,17 @@ describe("the getCircuit(2014, 6) call", function() {
                 expect(circuit.circuitName).toEqual("Circuit de Monaco");
                 expect(circuit.location.country).toEqual("Monaco");
             }
+            done();
+        });
+    });
+});
+
+// Test for getCircuit with invalid request
+describe("the getCircuit(1900, 1) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getCircuit(1900, 1, function(err, circuit) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(circuit).toBeUndefined();
             done();
         });
     });
@@ -229,6 +317,17 @@ describe("the getCircuits(2014) call", function() {
     });
 });
 
+// Test for getCircuits with invalid request
+describe("the getCircuits(1900) call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getCircuits(1900, function(err, circuit) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(circuit).toBeUndefined();
+            done();
+        });
+    });
+});
+
 // Test for getFinishingStatuses
 describe("the getFinishingStatuses(2014, 1) call", function() {
     it("returns a list that includes a status called Finished (10 times), and Collision (2 times)", function(done) {
@@ -243,12 +342,12 @@ describe("the getFinishingStatuses(2014, 1) call", function() {
 });
 
 // Test for getYearFinishingStatuses
-describe("the getYearFinishingStatuses(2014) call", function() {
-    it("returns a list that includes a status called Finished (147 times), and Collision (13 times)", function(done) {
-        ergast.getYearFinishingStatuses(2014, function(err, statuses) {
+describe("the getYearFinishingStatuses(2013) call", function() {
+    it("returns a list that includes a status called Finished (244 times), and Collision (12 times)", function(done) {
+        ergast.getYearFinishingStatuses(2013, function(err, statuses) {
             if (!err) {
-                expect(statuses.getStatus('Finished').count).toEqual(147);
-                expect(statuses.getStatus('Collision').count).toEqual(13);
+                expect(statuses.getStatus('Finished').count).toEqual(244);
+                expect(statuses.getStatus('Collision').count).toEqual(12);
             }
             done();
         });

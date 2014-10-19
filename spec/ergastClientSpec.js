@@ -425,7 +425,7 @@ describe("the getDriverLap(1900, 1, 1, 'alonso') call", function() {
 
 // Test for getPitStop
 describe("the getPitStop(2014, 4, 1) call", function() {
-   it("returns a pit stop with a duration of 22.994s done in the 10th lap", function(done) {
+   it("returns a pit stop for Raikkonen with a duration of 22.994s done in the 10th lap", function(done) {
         ergast.getPitStop(2014, 4, 1, function(err, pitStops){
             if (!err) {
                 expect(pitStops.getPitStop('raikkonen').duration).toEqual('22.994');
@@ -434,6 +434,17 @@ describe("the getPitStop(2014, 4, 1) call", function() {
             done();
         });
    });
+});
+
+// Test for getPitStop with invalid request
+describe("the getPitStop(1900, 1, 1, 'alonso') call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getPitStop(1900, 1, 1, function(err, pitStops) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(pitStops).toBeUndefined();
+            done();
+        });
+    });
 });
 
 // Test for getDriverPitStop
@@ -447,4 +458,15 @@ describe("the getDriverPitStop(2014, 1, 1, 'alonso') call", function() {
            done();
        });
    });
+});
+
+// Test for getgetDriverPitStop with invalid request
+describe("the getgetDriverPitStop(1900, 1, 1, 'alonso') call", function() {
+    it("returns an error because Formula 1 did not exist", function(done) {
+        ergast.getDriverPitStop(1900, 1, 1, 'alonso', function(err, pitStop) {
+            expect(err).toEqual(jasmine.any(Error));
+            expect(pitStop).toBeUndefined();
+            done();
+        });
+    });
 });

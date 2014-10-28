@@ -9,24 +9,22 @@ var Circuits = require('./lib/client/circuits');
 var FinishingStatuses = require('./lib/client/finishingStatuses');
 var LapTimes = require('./lib/client/lapTimes');
 var PitStops = require('./lib/client/pitStops');
-
-var BASE_URL = "http://ergast.com/api/f1/";
 var ResponsesValidator = require('./lib/client/responsesValidator');
 
 function ErgastClient() {
 
     var responsesValidator = new ResponsesValidator();
-    var seasons = new Seasons(BASE_URL, responsesValidator);
-    var races = new Races(BASE_URL, responsesValidator);
-    var raceResults = new RaceResults(BASE_URL, responsesValidator);
-    var qualifyingResults = new QualifyingResults(BASE_URL, responsesValidator);
-    var standings = new Standings(BASE_URL, responsesValidator);
-    var drivers = new Drivers(BASE_URL, responsesValidator);
-    var constructors = new Constructors(BASE_URL, responsesValidator);
-    var circuits = new Circuits(BASE_URL, responsesValidator);
-    var finishingStatuses = new FinishingStatuses(BASE_URL, responsesValidator);
-    var lapTimes = new LapTimes(BASE_URL, responsesValidator);
-    var pitStops = new PitStops(BASE_URL, responsesValidator);
+    var seasons = new Seasons(responsesValidator);
+    var races = new Races(responsesValidator);
+    var raceResults = new RaceResults(responsesValidator);
+    var qualifyingResults = new QualifyingResults(responsesValidator);
+    var standings = new Standings(responsesValidator);
+    var drivers = new Drivers(responsesValidator);
+    var constructors = new Constructors(responsesValidator);
+    var circuits = new Circuits(responsesValidator);
+    var finishingStatuses = new FinishingStatuses(responsesValidator);
+    var lapTimes = new LapTimes(responsesValidator);
+    var pitStops = new PitStops(responsesValidator);
 
     this.getSeason = function(year, callback) {
         seasons.getSeason(year, function(err, season) {
@@ -127,6 +125,12 @@ function ErgastClient() {
     this.getLap = function(season, round, lapNumber, callback) {
         lapTimes.getLap(season, round, lapNumber, function(err, lap) {
             callback(err, lap);
+        });
+    };
+
+    this.getLaps = function(season, round, callback) {
+        lapTimes.getLaps(season, round, function(err, laps) {
+           callback(err, laps);
         });
     };
 

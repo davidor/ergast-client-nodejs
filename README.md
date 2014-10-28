@@ -32,6 +32,7 @@ ergast.getCircuits(season, function(err, circuits) {});
 ergast.getFinishingStatuses(season, round, function(err, finishingStatuses) {});
 ergast.getYearFinishingStatuses(season, function(err, finishingStatuses) {});
 ergast.getLap(season, round, lapNumber, function(err, lap) {});
+ergast.getLaps(season, round, function(err, laps) {});
 ergast.getDriverLap(season, round, lapNumber, driverId, function(err, lap) {});
 ergast.getPitStop(season, round, pitStopNumber, function(err, pitStop) {});
 ergast.getDriverPitStop(season, round, pitStopNumber, driverId, function(err, pitStop) {});

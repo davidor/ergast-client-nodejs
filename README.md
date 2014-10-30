@@ -17,6 +17,7 @@ var ergast = new ErgastClient();
 
 ergast.getSeason(year, function(err, season) {});
 ergast.getRace(season, round, function(err, race) {});
+ergast.getLastRace(function(err, race) {});
 ergast.getRaceResults(season, round, function(err, raceResults) {});
 ergast.getQualifyingResults(season, round, function(err, qualifyingResults) {});
 ergast.getDriverStandings(season, function(err, driverStandings) {});

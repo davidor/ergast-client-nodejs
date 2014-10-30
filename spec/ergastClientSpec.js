@@ -49,6 +49,16 @@ describe("the getRace(1900, 1) call", function() {
     });
 });
 
+// Test for getLastRace
+describe("the getLastRace call", function() {
+   it("returns a race", function(done) {
+       ergast.getLastRace(function(err, race) {
+           expect(race.raceName).not.toBe(null);
+           done();
+       });
+   });
+});
+
 // Test for getRaceResults
 describe("the getRaceResults(2014, 1) call", function() {
     it("returns results that have Rosberg in P1 (team mercedes, time=1:32:58.710, fastestLapAvgSpeed=206.436)" +

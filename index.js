@@ -38,6 +38,12 @@ function ErgastClient() {
         });
     };
 
+    this.getLastRace = function(callback) {
+        races.getLastRace(function(err, race) {
+           callback(err, race);
+        });
+    };
+
     this.getRaceResults = function(season, round, callback) {
         raceResults.getRaceResults(season, round, function(err, raceResults) {
             callback(err, raceResults);

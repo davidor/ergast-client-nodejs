@@ -343,11 +343,11 @@ describe("the getCircuit(1900, 1) call", function() {
 
 // Test for getCircuits
 describe("the getCircuits(2014) call", function() {
-    it("returns a list of circuits that contains one with id=catalunya called Circuit de Catalunya" +
+    it("returns a list of circuits that contains one with id=catalunya called Circuit de Barcelona-Catalunya" +
             " in Spain", function(done) {
         ergast.getCircuits(2014, function(err, circuits) {
             var catalunya = circuits.getCircuit("catalunya");
-            expect(catalunya.circuitName).toEqual("Circuit de Catalunya");
+            expect(catalunya.circuitName).toEqual("Circuit de Barcelona-Catalunya");
             expect(catalunya.location.country).toEqual("Spain");
             done();
         });
